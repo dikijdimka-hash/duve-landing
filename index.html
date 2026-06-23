@@ -93,6 +93,8 @@ header.is-scrolled{
 }
 .nav{display:flex;align-items:center;justify-content:space-between;height:90px}
 .brand{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",system-ui,sans-serif;font-size:36px;font-weight:600;letter-spacing:.02em;padding-left:0;color:var(--ink)}
+/* слово DUVÉ в заголовке «пресса» — шрифтом логотипа (owner 23.06) */
+.dv-wordmark{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",system-ui,sans-serif;font-weight:600;letter-spacing:.02em}
 .navlinks{display:flex;gap:36px}
 .navlinks a{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .3s;position:relative}
 .navlinks a:hover{color:var(--ink)}
@@ -3387,6 +3389,9 @@ document.body.classList.remove('no-js');
 })();
 function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-ru]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t!=null)el.textContent=t});document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));try{localStorage.setItem('duve_lang',l)}catch(e){}window.dispatchEvent(new Event('duve:lang'))}
 document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+/* слово DUVÉ в заголовке «пресса» — шрифтом логотипа; перевыполняется после смены языка, т.к. setLang переписывает textContent */
+function dvWordmark(){document.querySelectorAll('.s-press .title').forEach(function(h){var t=h.textContent;if(/DUV[EÉ]/i.test(t)){h.innerHTML=t.replace(/(DUV[EÉ])/i,'<span class="dv-wordmark">$1</span>');}});}
+window.addEventListener('duve:lang',dvWordmark);document.addEventListener('DOMContentLoaded',dvWordmark);
 if(matchMedia('(pointer:fine)').matches){
   const cur=document.getElementById('cur'),curd=document.getElementById('curd');
   let cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
