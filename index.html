@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>window.DUVE={inits:[],lenis:null};</script>
+<!-- lang guard: прячем переводимый текст до применения EN, чтобы не было вспышки русского при загрузке -->
+<style id="dv-lang-guard">html:not(.lang-ready) [data-ru]{visibility:hidden}</style>
+<script>addEventListener('DOMContentLoaded',function(){document.documentElement.classList.add('lang-ready')});setTimeout(function(){document.documentElement.classList.add('lang-ready')},1500);</script>
 <style>
 :root{
   --bg:#17140f; --bg2:#1e1a14; --panel:#262017; --void:#0d0b08;
@@ -3409,6 +3412,7 @@ window.addEventListener('load',()=>{
   window.DUVE.cursorBind();
   try{ScrollTrigger.refresh()}catch(e){}
   setLang('en');
+  document.documentElement.classList.add('lang-ready');
 });
 // magnetic micro-interaction for the nav CTA glass pill
 window.DUVE.inits.push(function(){
