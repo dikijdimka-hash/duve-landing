@@ -21,7 +21,8 @@
 <script>window.DUVE={inits:[],lenis:null};</script>
 <!-- lang guard: прячем переводимый текст до применения EN, чтобы не было вспышки русского при загрузке -->
 <style id="dv-lang-guard">html:not(.lang-ready) [data-ru]{visibility:hidden}</style>
-<script>addEventListener('DOMContentLoaded',function(){document.documentElement.classList.add('lang-ready')});setTimeout(function(){document.documentElement.classList.add('lang-ready')},1500);</script>
+<script>/* последний резерв (8с): если основной init не отработал — свопаем на EN и показываем, чтобы НИКОГДА не проступал русский */
+setTimeout(function(){if(!document.documentElement.classList.contains('lang-ready')){document.querySelectorAll('[data-ru]').forEach(function(el){var t=el.getAttribute('data-en');if(t)el.textContent=t});document.documentElement.classList.add('lang-ready');}},8000);</script>
 <style>
 :root{
   --bg:#17140f; --bg2:#1e1a14; --panel:#262017; --void:#0d0b08;
