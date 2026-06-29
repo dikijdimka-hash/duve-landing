@@ -22,7 +22,7 @@
 <!-- lang guard: прячем переводимый текст до применения EN, чтобы не было вспышки русского при загрузке -->
 <style id="dv-lang-guard">html:not(.lang-ready) [data-ru]{visibility:hidden}</style>
 <script>/* последний резерв (8с): если основной init не отработал — свопаем на EN и показываем, чтобы НИКОГДА не проступал русский */
-setTimeout(function(){if(!document.documentElement.classList.contains('lang-ready')){document.querySelectorAll('[data-ru]').forEach(function(el){var t=el.getAttribute('data-en');if(t)el.textContent=t});document.documentElement.classList.add('lang-ready');}},8000);</script>
+setTimeout(function(){if(!document.documentElement.classList.contains('lang-ready')){document.querySelectorAll('[data-ru]').forEach(function(el){var t=el.getAttribute('data-en');if(t){if(t.indexOf('<')>=0)el.innerHTML=t;else el.textContent=t}});document.documentElement.classList.add('lang-ready');}},8000);</script>
 <style>
 :root{
   --bg:#17140f; --bg2:#1e1a14; --panel:#262017; --void:#0d0b08;
@@ -1075,7 +1075,7 @@ body.no-js .s-metier .m-linemask>span{transform:none}
 .s-metier .m-ledger-row .lt{flex:1}
 .s-metier .m-ledger-row .ld{color:var(--faint);font-size:10px;letter-spacing:.1em}
 .s-metier .m-ledger-row:hover,
-.s-metier .m-ledger-row.is-active{color:var(--gold-hi);padding-left:12px;background:linear-gradient(90deg,rgba(198,168,107,.06),transparent 70%)}
+.s-metier .m-ledger-row.is-active{color:var(--gold-hi);background:linear-gradient(90deg,rgba(198,168,107,.06),transparent 70%)}
 .s-metier .m-ledger-row:hover .lx,
 .s-metier .m-ledger-row.is-active .lx{color:var(--gold)}
 
@@ -1721,15 +1721,6 @@ body.no-js .s-metier .m-card-sweep{display:none}
 
         <div class="w-side">
           <p class="w-aside" data-ru="Шесть превращений механических икон в единственные в своём роде арт-объекты. Механизм остаётся <b>нетронутым</b> — меняется всё остальное: корпус, безель, циферблат, камни." data-en="Six transformations of mechanical icons into one-of-a-kind art objects. The movement stays <b>untouched</b> — everything else changes: case, bezel, dial, stones.">Шесть превращений механических икон в единственные в своём роде арт-объекты. Механизм остаётся <b>нетронутым</b> — меняется всё остальное: корпус, безель, циферблат, камни.</p>
-
-          <div class="w-legend" id="s-works-legend">
-            <div class="lrow on" data-i="1"><span class="ln">001</span><span class="lt" data-ru="Жёлтый карбон" data-en="Forged Carbon">Жёлтый карбон</span></div>
-            <div class="lrow" data-i="2"><span class="ln">002</span><span class="lt" data-ru="Синий скелетон" data-en="Skeleton">Синий скелетон</span></div>
-            <div class="lrow" data-i="3"><span class="ln">003</span><span class="lt" data-ru="Аметистовый безель" data-en="Gem-Setting">Аметистовый безель</span></div>
-            <div class="lrow" data-i="4"><span class="ln">004</span><span class="lt" data-ru="Розовый сапфир" data-en="Pink Sapphire">Розовый сапфир</span></div>
-            <div class="lrow" data-i="5"><span class="ln">005</span><span class="lt" data-ru="Открытый калибр" data-en="Open Calibre">Открытый калибр</span></div>
-            <div class="lrow" data-i="6"><span class="ln">006</span><span class="lt" data-ru="Жёлтый циферблат" data-en="Forged Carbon">Жёлтый циферблат</span></div>
-          </div>
 
           <div class="w-statline">
             <div class="w-stat"><span class="sv">06</span><span class="sk" data-ru="Превращений" data-en="Transformations">Превращений</span></div>
@@ -3396,7 +3387,7 @@ document.body.classList.remove('no-js');
   window.addEventListener('load',function(){setTimeout(finish,minHold);});
   setTimeout(finish,3000);
 })();
-function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-ru]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t!=null)el.textContent=t});document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));try{localStorage.setItem('duve_lang',l)}catch(e){}window.dispatchEvent(new Event('duve:lang'))}
+function setLang(l){document.documentElement.lang=l;document.querySelectorAll('[data-ru]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t!=null){if(t.indexOf('<')>=0)el.innerHTML=t;else el.textContent=t}});document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));try{localStorage.setItem('duve_lang',l)}catch(e){}window.dispatchEvent(new Event('duve:lang'))}
 document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 /* слово DUVÉ в заголовке «пресса» — шрифтом логотипа; перевыполняется после смены языка, т.к. setLang переписывает textContent */
 function dvWordmark(){document.querySelectorAll('.s-press .title').forEach(function(h){var t=h.textContent;if(/DUV[EÉ]/i.test(t)){h.innerHTML=t.replace(/(DUV[EÉ])/i,'<span class="dv-wordmark">$1</span>');}});}
